@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags static%}
+<head>
+    <link rel="stylesheet" href="{% static 'css/form.css'%}">
+</head>
+
+
+<div class="container col-md-6 cal-sm-12 p-10">
+<h3> Comment Page  {{bookName}}</h3>
+<div class="global-container login-form">
+<br> 
+<br> 
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form | crispy}}
+    <input type="hidden" id="book" name="book" value="{{ 1 }}">
+    <input class="btn btn-success" type="submit" value="Add comment">
+</form>
+<br> 
+<br> 
+</div>
+</div>
+{% endblock  %}

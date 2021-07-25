@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/profile.css'%}"> 
+</head>
+<div class="container-fluid page">
+<div class="row ">
+    <!-- profile show -->
+    <div class="col-md-4  name profile-show">
+          {% ifequal user.profile.image '' %} 
+               <img  src="https://www.pinclipart.com/picdir/middle/136-1369411_account-friend-location-map-personal-profile-icon-name.png" width="5px" height="5px"  alt="Cinque Terre">
+                {% else %}
+                <div class="text-center">
+                    <img class='imge-profile1' src="{% static user.profile.image %}" alt="profile_img"  width="5px" height="5px" ></div>
+               {% endifequal %}
+        <h1 class="heading"> {{profile.user.first_name}} {{profile.user.last_name}}</h1>
+        <hr>
+        <h1 class="heading"> About Me </h1>
+        <p> {{profile.user.profile.About_me}}</p>
+        <hr>
+            {% for country in profile.user.profile.countries%}
+            <p class="bi bi-geo-alt-fill" aria-hidden="true"> {{country.name}}</p>
+            {% endfor %}
+        <p class="fa fa-birthday-cake" aria-hidden="true">  {{profile.user.profile.birth_date}}</p>
+        <p class="bi bi-gender-ambiguous"> {{profile.user.profile.Gender}}</p>
+        {% if profile.user.id == request.user.id %}
+        <a class="bi bi-pencil-square" href="{% url 'profile_edit' pk=profile.pk %}">edit profile </a>
+        <a class="bi bi-arrow-counterclockwise" href="{% url 'password_change' %}">chanage password</a>
+        <a class="bi bi-gear-wide-connected" href="{% url 'setting'  pk=profile.pk %}">setting</a>
+        {% endif %}
+    </div>
+    <!--profile show end  -->
+    <div class="col">
+    <div class="row">
+        <!-- Favorite book start -->
+        <h4 class='list'>Favorite book</h4>
+        {% if profile.user.profile.fav_books.all %}
+        <div class="top-content">
+            <div class="container i">
+                <div id="carousel-example" class="carousel slide " data-interval="false">
+                    <div class="carousel-inner  row w-80 mx-auto " role="listbox">
+                        {% for book in profile.user.profile.fav_books.all %}
+                        {% if forloop.first %}
+                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3  active">
+                            <a href="{% url 'view_book' pk=book.id %}" type="button"><img class="card-image card-img-top p-2  Favorite-book-img"
+                                    src="{{book.image}}" alt="">
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                            <a href="{% url 'view_book' pk=book.id %}" type="button"><img class="card-image card-img-top p-2 Favorite-book-img"
+                                    src="{{book.image}}" alt="">
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        {% else %}
+                        <h3>We are sorry, there are currently no Images to display</h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+       <!--profile show end  -->
+       <div class="row">
+        <!-- want To Read start -->
+        <h4 class="list">want To Read</h4>
+        {% if profile.user.profile.wantToRead.all %}
+        <div class="top-content">
+            <div class="container-fluid i">
+                <div id="carousel-example2" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner row w-80 mx-auto " role="listbox">
+                        {% for book in profile.user.profile.wantToRead.all %}
+                        {% if forloop.first %}
+                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3  active">
+                            <a href="{% url 'view_book' pk=book.id %}" type="button"><img class="card-image card-img-top p-2 Favorite-book-img"
+                                    src="{{book.image}}" alt="">
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                            <a href="{% url 'view_book' pk=book.id %}" type="button"><img class="card-image card-img-top p-2 Favorite-book-img"
+                                    src="{{book.image}}" alt="">
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <a class="carousel-control-prev" href="#carousel-example2" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-example2" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        {% else %}
+                        <h3>We are sorry, there are currently no Images to display</h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+    <!-- Top content -->
+    <!-- Top content -->
+
+</div>
+</div>
+
+</div>
+    <script>
+        $('.carousel').carousel({
+            interval: false,
+        });
+        /*
+            Carousel
+        */
+        $('#carousel-example').on('slide.bs.carousel', function (e) {
+            /*
+                CC 2.0 License Iatek LLC 2018 - Attribution required
+            */
+            var $e = $(e.relatedTarget);
+            var idx = $e.index();
+            var itemsPerSlide = 5;
+            var totalItems = $('.carousel-item').length;
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i = 0; i < it; i++) {
+                    // append slides to end
+                    if (e.direction == "left") {
+                        $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                    }
+                    else {
+                        $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                    }
+                }
+            }
+        });
+    </script>
+    {% endblock %}

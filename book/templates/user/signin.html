@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/form.css'%}">
+
+</head>
+
+<div class="global-container">
+	<div class="card login-form">
+	<div class="card-body">
+		<h2 class="card-title text-center">Welcome back, </h2>
+		<div class="card-text">
+			<form  action="" method="POST">
+				<!-- to error: add class "has-danger" -->
+				<div class="form-group">
+				{% csrf_token %}
+                {{form.as_p}}
+				</div>
+				<button type="submit" class="btn ">Sign in</button>
+				
+				<div class="sign-up">
+					 <a href="{% url 'reset-password'%}">Forgot Password ?</a>
+                    <p> you have an account?<a href="{% url 'register'%}"> Create One</a> </p>
+
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+
+{% endblock  %}

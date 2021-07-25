@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/form.css'%}">
+
+</head>
+
+<div class="global-container">
+	<div class="card large-form">
+	<div class="card-body">
+		<h2 class="card-title text-center">Profile Edit</h2>
+		<div class="card-text">
+			<form  method="POST" enctype='multipart/form-data'>
+				<!-- to error: add class "has-danger" -->
+				<div class="form-group">
+				{% csrf_token %}
+                {{form.as_p}}
+				</div>
+				<input class="btn btn-primary mt-2" type="submit">
+
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+
+{% endblock  %}

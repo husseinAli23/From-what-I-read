@@ -1,0 +1,26 @@
+.bg-image{
+    opacity: 0.9;
+    margin-top: 110px;
+}
+.transbox{
+    background-color: hsl(0, 0%, 100%, 0.8);
+    text-align: left;
+    width: 60%;
+    height: 200px;
+    padding: 28px;
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}
+#carouselExampleIndicators p{
+    padding-top: 20px;
+    font-size: 18px;
+}
+.carousel{
+    margin-top: 45px;
+}
+#idea p{
+    color:#22223b;
+}
+#idea h3{
+    color:#22223b;
+}

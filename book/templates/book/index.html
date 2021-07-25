@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="text-center bg-light text-dark font-weight-bold">All Book</h4>
+<div class="row">
+{% for book in all_books %}
+<div class="col m-2">
+  
+  <div class="card" style="width: 12rem;" onclick='location.href=`{% url "view_book" pk=book.id %}` '>
+    <img class="card-img-top" src="{{book.image}}" alt="Card image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      {% comment %} <p class="card-text">{{book.description}}</p> {% endcomment %}
+      <!-- <a href="{% url 'view_book' pk=book.id %}" class="btn btn-primary">read more</a> -->
+    </div>
+  </div>
+  </div>
+  {%endfor%}
+</div>
+<!-- Horror Book div-->
+<h4 class="p-2 text-center bg-light text-dark font-weight-bold">Horror Book</h4>
+<div class="row">
+  {% for book in horrorBook %}
+  <div class="col m-2">
+    <div class="card" style="width: 12rem;" onclick='location.href=`{% url "view_book" pk=book.id %}` '>
+      <img class="card-img-top" src="{{book.image}}" alt="Card image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      {% comment %} <p class="card-text">{{book.description}}</p> {% endcomment %}
+     <!--  <a href="{% url 'view_book' pk=book.id %}" class="btn btn-primary">read more</a> -->
+    </div>
+  </div>
+</div>
+  {%endfor%}
+</div>
+<!-- Action and Adventure Book div-->
+<h4 class="p-2 text-center bg-light text-dark font-weight-bold">Action and Adventure Book</h4>
+<div class="row">
+  {% for book in actionBook %}
+  <div class="col m-2">
+    <div class="card" style="width: 12rem;" onclick='location.href=`{% url "view_book" pk=book.id %}` '>
+      <img class="card-img-top" src="{{book.image}}" alt="Card image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      {% comment %} <p class="card-text">{{book.description}}</p> {% endcomment %}
+     <!--  <a href="{% url 'view_book' pk=book.id %}" class="btn btn-primary">read more</a> -->
+    </div>
+  </div>
+</div>
+  {%endfor%}
+</div>
+  
+<!-- Browse by type -->
+<h4 class="p-2 text-center bg-light text-dark  font-weight-bold">Browse by type</h4>
+<div class="row d-flex justify-content-center ">
+<!-- horrorBook -->
+  <div class="col m-2">
+  <div class="card bg-dark  text-white" style="width: 18rem;"  onclick='location.href=`{% url "search_by_type" mtype="horror" %}`'>
+    <img
+      src="https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1356&h=668&fit=crop"
+      class="card-img"
+      alt="..."/>
+    <div class="card-img-overlay">
+      <h5 class="card-title text-center  font-weight-bold">Hrror Book</h5>
+    </div>
+  </div>
+  </div>
+
+  <!-- Cookbooks -->
+<div class="col m-2">
+  <div class="card bg-dark text-white" style="width: 18rem;" onclick='location.href=`{% url "search_by_type" mtype="cookbooks" %}`'>
+    <img
+      src="https://media.istockphoto.com/photos/blank-cookbook-and-spices-picture-id478776508?k=6&m=478776508&s=612x612&w=0&h=LRorPF-RjqXWw8DNB4-JoOi2SopQ5_0zq2RNC6I6zLU="
+      class="card-img"
+      height="135px"
+      alt="..."/>
+      <div class="card-img-overlay">
+        <h5 class="card-title text-center">Cookbooks</h5>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Action and Adventure -->
+  <div class="col m-2">
+    <div class="card bg-dark  text-white" style="width: 18rem;" onclick='location.href=`{% url "search_by_type" mtype="action" %}`'>
+      <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEAjYE6aCJJG_ANV8BRESTbuo83gWQCNi3Ig&usqp=CAU"
+      class="card-img"
+      height="135px"
+      alt="..."
+      />
+      <div class="card-img-overlay">
+        <h5 class="card-title text-center">Action and Adventure</h5>
+      </div>
+    </div>
+  </div>
+  <!-- Detective and Mystery -->
+  <div class="col m-2">
+    <div class="card bg-dark  text-white" style="width: 18rem;" onclick='location.href=`{% url "search_by_type" mtype="detective" %}`'>
+      <img
+      src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F24%2F2018%2F09%2Fgettyimages-183822187-1.jpg&q=85"
+      height="135px"
+      class="card-img"
+      alt="..."/>
+      <div class="card-img-overlay">
+        <h5 class="card-title text-center">Detective and Mystery</h5>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Literary Fiction -->
+  <div class="col m-2">
+    <div class="card bg-dark  text-white" style="width: 18rem;" onclick='location.href=`{% url "search_by_type" mtype="literary" %}`'>
+      <img
+      src="https://www.marketplace.org/wp-content/uploads/2021/01/Books_New-e1611252343470.jpg?fit=2879%2C1619"
+      height="135px"
+      class="card-img"
+      alt="..."/>
+      <div class="card-img-overlay">
+        <h5 class="card-title text-center">Literary Fiction</h5>
+      </div>
+    </div>
+  </div>
+  
+  <!-- graphic novel -->
+<div class="col m-2">
+  <div class="card bg-dark  text-white" style="width: 18rem;"  onclick='location.href=`{% url "search_by_type" mtype="novel" %}`'>
+    <img
+    src="https://www.incimages.com/uploaded_files/image/1920x1080/rey-seven-nm-mZ4Cs2I-unsplash_397351.jpg"
+    class="card-img"
+    height="135px"
+    alt="..."/>
+      <div class="card-img-overlay">
+        <h5 class="card-title text-center">Graphic novel</h5>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+{% endblock  %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h2>Search BOOK</h2>
+
+{% if  all_books %}
+<div class="row">
+ {% for book in  all_books %}
+ {% comment %}  <img src="{{book.image}}" alt="">
+  <h4>{{book.name}}</h4>
+  <a href="{% url 'view_book' pk=book.id %}" type="button" >click for more</a>
+ {% endcomment %}
+
+  <div class="col m-2">
+  
+  <div class="card" style="width: 12rem;" onclick='location.href=`{% url "view_book" pk=book.id %}` '>
+    <img class="card-img-top" src="{{book.image}}" alt="Card image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      
+      <!-- <a href="{% url 'view_book' pk=book.id %}" class="btn btn-primary">read more</a> -->
+    </div>
+  </div>
+  </div>
+  {%endfor%}
+
+
+</div>
+{%else %}
+<div class="d-flex justify-content-center"><img src="https://lh3.googleusercontent.com/proxy/wZcj4IxTvk0YeLfQG8GrPwN4PMKjaHk0l_FH0pSeBjAPjMMeu4We99QK8zsQTBfl-zyVN761lcCvJViTxjcj4LnYRzM" /></div>
+{% endif %}
+{%endblock%}

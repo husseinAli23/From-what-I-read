@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+<head>
+    <title>On Page One</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    {% comment %} <link rel="shortcut icon"  type="../img/logo2.jpg" href="favicon.ico"/> {% endcomment %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- {% comment %} Bootstrap css {% endcomment %}-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- {% comment %} Font awesome {% endcomment %} -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- {% comment %} custom css & js {% endcomment %} -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color:#FAE1DD;">
+        {% comment %} <a class="navbar-brand" href="#">Navbar</a> {% endcomment %}
+        <img src="../img/logo2.jpg" style="width:250px; height:50px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}" style="color:#22223b">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_books' %}"style="color:#22223b">All books</a>
+                </li>
+                {% if user.profile.user_status %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_book' %}" style="color:#22223b">new book</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   
+                {% ifequal user.profile.image '' %} 
+               <img src="https://www.pinclipart.com/picdir/middle/136-1369411_account-friend-location-map-personal-profile-icon-name.png" width="20px" height="20px" class="profile_image" alt="Cinque Terre">
+                {% else %}
+                    <img src="{% static user.profile.image %}" width="20px" height="20px" class="profile_image" alt="Cinque Terre">
+               {% endifequal %}
+
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" href="{% url 'profile' pk=request.user.id %}" style="color:#22223b">My profile</a>
+                    <a class="nav-link" href="{% url 'logout' %}" style="color:#22223b">Sing-out</a>
+                  </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signin' %}" style="color:#22223b">Sign-in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}" style="color:#22223b">Register</a>
+                </li>
+                {% endif%}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by book name" aria-label="Search" name='q'>
+                <button class="btn my-2 my-sm-0" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 20 20">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg>
+</button>
+            </form>
+        </div>
+    </nav>
+
+    {% if messages %}
+       {% for message in messages %}
+           <div class="alert alert-{{message.tags}} django-msg" role="alert">
+            <h4 class="alert-heading text-center ">
+            {{message}}
+            </h4>
+          </div>
+           {% endfor %}
+    {% endif %}
+
+    <main style="min-height: calc( 100vh - (70px + 137px) );">
+        <div class="container">
+            {% block content%}
+            {% endblock %}
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+<footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color:#22223b; color:#FFE5D9;">
+        Created by Omega
+    </div>
+  </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="{% static 'js/main.js'%}"></script>
+</body>
+
+</html>
+
+
+{% comment %} <script>
+    setTimeout(()=>document.querySelector('.django-msg').remove()  ,3000 )
+  </script> {% endcomment %}

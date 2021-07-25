@@ -1,0 +1,76 @@
+.page{
+    background-color: #F8EDEB;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+}
+
+
+.name{
+    background-color:#F8EDEB;
+    margin: 0 px;
+}
+.imge-profile1{
+    width: 250px;
+    height: 250px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 50px;
+
+}
+.imge-profile{
+    width: 10%;
+    height: 15%;
+}
+
+.Favorite-book-img{
+    
+    width: 250px;
+    height: 250px;
+}
+.heading{
+    font-size:19x;
+    text-align: center;
+    font-weight: 700;
+}
+.imge-profile{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 450px;
+    height: 460px;
+    border-radius: 50px;
+}
+
+
+.i{
+    background-color:#fff8f7f5;
+}
+a{
+    color: rgb(109, 187, 194);
+}
+.profile-show{
+    color: rgb(116, 116, 116);
+    padding: 1%;
+}
+
+.list{
+    font-size:19x;
+    font-weight: 700;
+    color:rgb(116, 116, 116);
+}
+
+.carousel-inner .carousel-item-right.active,
+.carousel-inner .carousel-item-next {
+  transform: translateX(33.33%);
+}
+
+.carousel-inner .carousel-item-left.active, 
+.carousel-inner .carousel-item-prev {
+  transform: translateX(-33.33%)
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+}

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+<style>
+.body{
+background-color:#ffff;
+padding: 3% 5%;
+margin-top:2%
+}
+</style>
+</head>
+ 
+<div class="body" >
+<div class="card mb-3 mt-5  " style="max-width: 650px;  ">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <!-- <svg class="bd-placeholder-img" width="100%" height="250" xmlns="{{book.image}}" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/></svg> -->
+      <img src="{{book.image}}" alt="" width="100%" height="250" srcset="">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+
+    <p > <span class="font-weight-bold"> Book Name: </span>{{book.name}} </p>
+    {% comment %} <p > <span class="font-weight-bold"> Description: </span>{{book.description}} </p> {% endcomment %}
+    <p > <span class="font-weight-bold"> Type: </span>{{book.book_type}} </p>
+    <p > <span class="font-weight-bold"> Auther: </span>{{book.name_auther}} </p>
+    <p > <span class="font-weight-bold"> Publication date: </span>{{book.release_date}} </p>
+<div class="d-flex justify-content-end ">
+  <div class="mt-auto p-2">
+   {% if book in user.profile.fav_books.all %}
+                <a type="button"
+                href="{% url 'favorite_book' pk=book.id %}"
+                class="btn btn-outline-info"><i class="bi bi-heart-fill"></i></a>
+
+                {%else %}
+                <a type="button"
+                href="{% url 'favorite_book' pk=book.id %}"
+                class="btn btn-outline-success"><i class="far fa-heart"></i></a>
+                {% endif%}
+  </div>
+  <div class="mt-auto p-2">
+    {% if book in user.profile.wantToRead.all %}
+                <a type="button"
+                href="{% url 'wantToRead' pk=book.id %}"
+                class="btn btn-outline-info"><i class="bi bi-bookmarks-fill"></i></a>
+
+                {%else %}
+                <a type="button"
+                href="{% url 'wantToRead' pk=book.id %}"
+                class="btn btn-outline-success"><i class="bi bi-bookmark"></i></a>
+                {% endif%}
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if user.id == request.user.id %}
+<div>
+<p class="font-weight-bold">Mange book
+<a href="{% url 'edit_book' pk=book.id %}" type="button"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+<a type="button" href="{% url 'delete_book' pk=book.id %}"><i class="bi bi-trash-fill"></i></a>
+</p>
+</div>
+{% endif %} 
+<h3>Description</h3>
+<p>{{book.description}}</p>
+  <hr>
+<div class="rat mx-auto">
+<h4>Add your rate </h4>
+  <div class="stars">
+   <form action="{% url 'add_rating'  pk=book.id %}" class="rate-form" method= "POST">
+      {% csrf_token %}
+      <button  class="fa fa-star fa-3x my-btn checked" id="first"></button>
+      <button  class="fa fa-star fa-3x my-btn" id="second"></button>
+      <button  class="fa fa-star fa-3x my-btn" id="third"></button>
+      <button  class="fa fa-star fa-3x my-btn" id="fourth"></button>
+      <button  class="fa fa-star fa-3x my-btn" id="fifth"></button>
+      <input value=""  name="rate" style="opacity: 0; width: 0;" id="rate_input"/>
+   </form>
+  </div>
+</div>
+<hr>
+
+
+<h4>
+Rating statistics
+</h4>
+<div class="col-md-6 p-2 bg-light" >
+  <h6> Start 1 </h6>
+<div class="progress">
+ <div class="progress-bar" role="progressbar" style="width: {{count1}}%" aria-valuenow="{{count1}}" aria-valuemin="0" aria-valuemax="100">{{count1}}</div>
+</div>
+<br>
+<h6> Start 2 </h6>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: {{count2}}%" aria-valuenow="{{count2}}" aria-valuemin="0" aria-valuemax="100">{{count2}}</div>
+</div>
+<br>
+<h6> Start 3</h6>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: {{count3}}%" aria-valuenow="{{count3}}" aria-valuemin="0" aria-valuemax="100">{{count3}}</div>
+</div>
+<br>
+<h6> Start 4 </h6>
+<div class="progress">
+ <div class="progress-bar" role="progressbar" style="width: {{count4}}%" aria-valuenow="{{count4}}" aria-valuemin="0" aria-valuemax="100">{{count4}}</div>
+</div>
+<br>
+<h6> Start 5 </h6>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: {{count5}}%" aria-valuenow="{{count5}}" aria-valuemin="0" aria-valuemax="100">{{count5}}</div>
+</div>
+</div>
+
+<h4>Comments:</h4>
+{% if not book.comments.all %}
+<br>
+No Comments Yet..<a href="{% url 'add_comment'  pk=book.id %}"> Add comment</a>
+
+{% else %}
+<a href="{% url 'add_comment'  pk=book.id %}">Add comment</a>
+<br>
+<hr>
+<br>
+{% for i in book.comments.all%}
+
+{% if not i.status == "b" %}
+<div class="row d-flex flex-row">
+  <div class="col-md-8">
+    
+        
+    <div class="card p-3 mt-2">
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="user d-flex flex-row align-items-center"> <img src="{% static i.user.profile.image %}" width="30" class="user-img rounded-circle mr-2"> <span><small class="font-weight-bold text-primary">{{i.user}}</small> <small class="font-weight-bold"> {{i.name}}  </small></span> </div> <small>{{i.date_added}}</small>
+      </div>
+
+      <div class="action d-flex justify-content-between mt-2 align-items-center">
+          <div class="reply px-4"> 
+            <small>{{ i.comment}}</small><br>
+            {% if i.user.id == request.user.id %}
+            <small><a type="button" href="{% url 'delete_comment' pk=i.pk %}">Remove</a></small> <span class="dots"></span> 
+            <small><a href="{% url 'edit_comment' pk=i.id pkb=book.id %}" type="button"> update </a></small>
+             {% endif %}
+
+          </div>
+          <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+
+      </div>
+ 
+      </div>
+
+    </div>
+  </div>
+  {% endif %}
+
+  {% endfor %}
+  <hr>
+  {% endif %}
+  </br>
+  </br>
+  </br>
+  </div>
+{% endblock  %}
+

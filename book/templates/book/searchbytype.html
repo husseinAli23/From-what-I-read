@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>{{books.0.book_type |capfirst}} Book</h1>
+<div class="row">
+{% for book in books %}
+<div class="col m-2">
+  
+  <div class="card" style="width: 12rem;" onclick='location.href=`{% url "view_book" pk=book.id %}` '>
+    <img class="card-img-top" src="{{book.image}}" alt="Card image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      
+      <!-- <a href="{% url 'view_book' pk=book.id %}" class="btn btn-primary">read more</a> -->
+    </div>
+  </div>
+  </div>
+  {%endfor%}
+</div>
+
+
+
+
+
+{% endblock  %}

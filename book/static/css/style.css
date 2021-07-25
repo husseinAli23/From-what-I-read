@@ -1,0 +1,47 @@
+.checked{
+    color: rgb(231, 62, 0);
+}
+.my-btn{
+    background-color: inherit !important;
+    border: 0 !important;
+}
+.shelves{
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+*{
+    font-family: 'Merriweather', serif;
+
+}
+
+body{
+width:100%;
+background-image:url(“../img/img3.jpg”);
+background-repeat: no-repeat;
+background-size:cover, contain ;  }
+#book_image{
+    margin-top: 50px;
+}
+.book-info{
+    float: left;
+}
+.img-hover:hover{
+    transform: scale(1.1);
+}
+div img{
+    border-radius: 4px;
+}
+.idea{
+    background-color: hsl(0, 0%, 100%, 0.8);
+    height: auto;
+    width: 70%;
+    justify-content: center;
+}
+.nav-link{
+    font-weight: bold;
+    padding-left: 10%;
+    margin-top: 2%;
+}
